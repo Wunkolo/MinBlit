@@ -256,55 +256,74 @@ public:
 
 // Channel traits type
 template<
-	typename PackedType,
+	typename TypePacked,
+	typename TypeChannel,
 	size_t RedBits,
 	size_t GreenBits,
 	size_t BlueBits,
 	size_t AlphaBits,
-	size_t RedOffset,
+	size_t RedOffset = 0,
 	size_t GreenOffset = RedBits,
 	size_t BlueOffset = GreenOffset + GreenBits,
 	size_t AlphaOffset = BlueOffset + BlueBits
 >
 struct BltPixelTraits
 {
-	using PixelType = PackedType;
+	using PixelType = TypePacked;
+	using ChannelType = TypeChannel;
 
 	static constexpr BltSize RedDepth = RedBits;
 	static constexpr BltSize RedShift = RedOffset;
-	static constexpr PixelType RedMask
+	static constexpr PixelType RedMask()
 	{
 		return ((PixelType(1) << RedDepth) - PixelType(1)) << RedShift;
 	};
 
 	static constexpr BltSize GreenDepth = GreenBits;
 	static constexpr BltSize GreenShift = GreenOffset;
-	static constexpr PixelType GreenMask
+	static constexpr PixelType GreenMask()
 	{
 		return ((PixelType(1) << GreenDepth) - PixelType(1)) << GreenShift;
 	};
 
 	static constexpr BltSize BlueDepth = BlueBits;
 	static constexpr BltSize BlueShift = BlueOffset;
-	static constexpr PixelType BlueMask
+	static constexpr PixelType BlueMask()
 	{
 		return ((PixelType(1) << BlueDepth) - PixelType(1)) << BlueShift;
 	};
 
 	static constexpr BltSize AlphaDepth = AlphaBits;
 	static constexpr BltSize AlphaShift = AlphaOffset;
-	static constexpr PixelType AlphaMask
+	static constexpr PixelType AlphaMask()
 	{
 		return ((PixelType(1) << AlphaDepth) - PixelType(1)) << AlphaShift;
 	};
 };
 
-template<
-	class Traits
->
-class BltColor
+namespace PixelFormats
 {
+using RGBA32 = BltPixelTraits<
+	uint32_t,
+	uint8_t,
+	8, 8, 8, 8
+>;
+}
+
+template<
+	class PixTraits
+>
+class BltPixel
+{
+public:
+	BltPixel()
+	{
+	}
+private:
+	typename PixTraits::PixelType PixelData;
 };
+
+using BltPixelRGBA32 = BltPixel<PixelFormats::RGBA32>;
 }
 
 #ifdef MINBLIT_IMPLEMENTATION
