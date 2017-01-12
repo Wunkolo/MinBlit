@@ -126,6 +126,84 @@ inline BltIntegral isqrt(BltIntegral x)
 	}
 	return Count--;
 }
+
+template< typename ScalarType>
+class BltPoint
+{
+public:
+	ScalarType X, Y;
+	BltPoint()
+		:
+		X(0),
+		Y(0)
+	{
+	}
+
+	BltPoint(ScalarType X, ScalarType Y)
+		:
+		X(X),
+		Y(Y)
+	{
+	}
+
+	inline bool operator==(const BltPoint& Other) const
+	{
+		return ((X == Other.X) && (Y == Other.Y));
+	}
+
+	inline BltPoint operator+(const BltPoint& Other) const
+	{
+		return BltPoint(
+			X + Other.X,
+			Y + Other.Y
+		);
+	}
+
+	inline BltPoint operator-(const BltPoint& Other) const
+	{
+		return BltPoint(
+			X - Other.X,
+			Y - Other.Y
+		);
+	}
+	inline BltPoint operator*(const BltPoint& Other) const
+	{
+		return BltPoint(
+			X * Other.X,
+			Y * Other.Y
+		);
+	}
+	inline BltPoint operator/(const BltPoint& Other) const
+	{
+		return BltPoint(
+			X / Other.X,
+			Y / Other.Y
+		);
+	}
+
+	template< typename T >
+	inline BltPoint operator*(const T Value) const
+	{
+		return BltPoint(
+			X * Value,
+			Y * Value
+		);
+	}
+
+	inline BltScalar Length() const
+	{
+		return std::sqrt(
+			static_cast<BltScalar>(
+			X * X + Y * Y
+		)
+		);
+	}
+
+	inline BltScalar Dot(const BltPoint& Other) const
+	{
+		return X * Other.X + Y * Other.Y;
+	}
+};
 }
 
 #ifdef MINBLIT_IMPLEMENTATION
