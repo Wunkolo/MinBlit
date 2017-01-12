@@ -317,6 +317,8 @@ class BltPixel
 {
 public:
 	BltPixel()
+		:
+		PixelData(0)
 	{
 	}
 private:
