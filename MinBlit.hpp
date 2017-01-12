@@ -127,7 +127,7 @@ inline BltIntegral isqrt(BltIntegral x)
 	return Count--;
 }
 
-template< typename ScalarType>
+template< typename ScalarType >
 class BltPoint
 {
 public:
@@ -202,6 +202,55 @@ public:
 	inline BltScalar Dot(const BltPoint& Other) const
 	{
 		return X * Other.X + Y * Other.Y;
+	}
+};
+
+template< typename ScalarType >
+class BltRect
+{
+public:
+	BltPoint<ScalarType> Center, HalfDimensions;
+
+	BltRect()
+		:
+		Center(0, 0),
+		HalfDimensions(0, 0)
+	{
+	}
+
+	BltRect(
+		const BltPoint& Center,
+		const BltPoint& HalfDimensions
+	)
+		:
+		Center(Center),
+		HalfDimensions(HalfDimensions)
+	{
+	}
+
+	BltRect(
+		ScalarType CenterX,
+		ScalarType CenterY,
+		ScalarType HalfWidth,
+		ScalarType HalfHeight
+	)
+		:
+		Center(CenterX, CenterY),
+		HalfDimensions(HalfWidth, HalfHeight)
+	{
+	}
+
+	bool Contains(const BltPoint<ScalarType>& Point) const
+	{
+		BltPoint<ScalarType> Dist = Center - Point;
+		if( Abs(Dist.X) = Abs(HalfDimensions.X) )
+		{
+			if( Abs(Dist.Y) <= Abs(HalfDimensions.Y) )
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 };
 }
