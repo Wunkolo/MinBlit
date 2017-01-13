@@ -45,6 +45,7 @@ LICENSE
 #include <stddef.h>
 #include <type_traits>
 #include <limits>
+#include <memory>
 
 namespace MinBlit
 {
@@ -452,6 +453,86 @@ using BltPixelRGBA4444 = BltPixel<PixelFormats::RGBA4444>;
 using BltPixelRGBA5551 = BltPixel<PixelFormats::RGBA5551>;
 using BltPixelRGB888 = BltPixel<PixelFormats::RGB888>;
 using BltPixelRGB565 = BltPixel<PixelFormats::RGB565>;
+
+template<
+	class PixTraits
+>
+class BltSurface
+{
+public:
+	using Traits = PixTraits;
+
+	BltSurface()
+		:
+		Pixels(nullptr),
+		Width(0),
+		Height(0)
+	{
+	}
+
+	BltSurface(BltSize Width, BltSize Height)
+		:
+		Pixels(nullptr),
+		Width(Width),
+		Height(Height)
+	{
+		if( Width && Height )
+		{
+			try
+			{
+				Pixels.reset(new typename Traits::PixelType[Width * Height]);
+			}
+			catch
+			{
+				// Error allocating
+			}
+		}
+		else
+		{
+			Width = Height = 0;
+		}
+	}
+
+	inline constexpr BltSize GetWidth() const
+	{
+		return Width;
+	}
+
+	inline constexpr BltSize GetHeight() const
+	{
+		return Height;
+	}
+
+	inline constexpr typename Traits::PixelType GetPixel(BltSize X, BltSize Y) const
+	{
+		return Pixels[X + (Y * GetWidth())];
+	}
+
+	inline constexpr const typename Traits::PixelType* GetPixels() const
+	{
+		return Pixels.get();
+	}
+
+	inline void SetPixel(BltPoint Position, typename Traits::PixelType Pixel)
+	{
+		SetPixel(Position.X, Position.Y, Pixel);
+	}
+
+	inline void SetPixel(BltSize X, BltSize Y, typename Traits::PixelType Pixel)
+	{
+		Pixels[X + (Y * GetWidth())] = Pixel;
+	}
+
+private:
+	BltSize Width, Height;
+	std::unique_ptr<typename Traits::PixelType[]> Pixels;
+};
+
+using BltSurfaceRGBA8888 = BltSurface<PixelFormats::RGBA8888>;
+using BltSurfaceRGBA4444 = BltSurface<PixelFormats::RGBA4444>;
+using BltSurfaceRGBA5551 = BltSurface<PixelFormats::RGBA5551>;
+using BltSurfaceRGB888 = BltSurface<PixelFormats::RGB888>;
+using BltSurfaceRGB565 = BltSurface<PixelFormats::RGB565>;
 }
 
 #ifdef MINBLIT_IMPLEMENTATION
