@@ -272,6 +272,11 @@ struct BltPixelTraits
 	using PixelType = TypePacked;
 	using ChannelType = TypeChannel;
 
+	static constexpr BltSize BitsPerPixel =
+		RedBits + GreenBits + BlueBits + AlphaBits;
+	static constexpr BltSize BytesPerPixel =
+		((BitsPerPixel + 8 - 1) & (~(8 - 1))) / 8;
+
 	static constexpr BltSize RedDepth = RedBits;
 	static constexpr BltSize RedShift = RedOffset;
 	static constexpr PixelType RedMask()
