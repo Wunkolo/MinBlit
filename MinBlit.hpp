@@ -321,6 +321,72 @@ public:
 		PixelData(0)
 	{
 	}
+
+	BltPixel(typename PixTraits::PixelType Value)
+		:
+		PixelData(Value)
+	{
+	}
+
+	BltPixel(
+		typename PixTraits::ChannelType Red,
+		typename PixTraits::ChannelType Green,
+		typename PixTraits::ChannelType Blue,
+		typename PixTraits::ChannelType Alpha
+	)
+		:
+		PixelData(0)
+	{
+		SetRed(Red);
+		SetGreen(Green);
+		SetBlue(Blue);
+		SetAlpha(Alpha);
+	}
+
+	constexpr typename PixTraits::ChannelType GetRed() const
+	{
+		return (PixelData & PixTraits::RedMask()) >> PixTraits::RedShift;
+	}
+
+	constexpr typename PixTraits::ChannelType GetGreen() const
+	{
+		return (PixelData & PixTraits::GreenMask()) >> PixTraits::GreenShift;
+	}
+
+	constexpr typename PixTraits::ChannelType GetBlue() const
+	{
+		return (PixelData & PixTraits::BlueMask()) >> PixTraits::BlueShift;
+	}
+
+	constexpr typename PixTraits::ChannelType GetAlpha() const
+	{
+		return (PixelData & PixTraits::AlphaMask()) >> PixTraits::AlphaShift;
+	}
+
+	void SetRed(typename PixTraits::ChannelType Value)
+	{
+		PixelData &= ~PixTraits::RedMask();
+		PixelData |= (Value << PixTraits::RedShift) & PixTraits::RedMask();
+	}
+
+	void SetGreen(typename PixTraits::ChannelType Value)
+	{
+		PixelData &= ~PixTraits::GreenMask();
+		PixelData |= (Value << PixTraits::GreenShift) & PixTraits::GreenMask();
+	}
+
+	void SetBlue(typename PixTraits::ChannelType Value)
+	{
+		PixelData &= ~PixTraits::BlueMask();
+		PixelData |= (Value << PixTraits::BlueShift) & PixTraits::BlueMask();
+	}
+
+	void SetAlpha(typename PixTraits::ChannelType Value)
+	{
+		PixelData &= ~PixTraits::AlphaMask();
+		PixelData |= (Value << PixTraits::AlphaShift) & PixTraits::AlphaMask();
+	}
+
 private:
 	typename PixTraits::PixelType PixelData;
 };
