@@ -206,6 +206,10 @@ public:
 	}
 };
 
+using BltPointSize = BltPoint<BltSize>;
+using BltPointInt = BltPoint<BltIntegral>;
+using BltPointSize = BltPoint<BltScalar>;
+
 template< typename ScalarType >
 class BltRect
 {
