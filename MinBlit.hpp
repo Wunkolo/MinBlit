@@ -343,45 +343,45 @@ public:
 		SetAlpha(Alpha);
 	}
 
-	constexpr typename PixTraits::ChannelType GetRed() const
+	inline constexpr typename PixTraits::ChannelType GetRed() const
 	{
 		return (PixelData & PixTraits::RedMask()) >> PixTraits::RedShift;
 	}
 
-	constexpr typename PixTraits::ChannelType GetGreen() const
+	inline constexpr typename PixTraits::ChannelType GetGreen() const
 	{
 		return (PixelData & PixTraits::GreenMask()) >> PixTraits::GreenShift;
 	}
 
-	constexpr typename PixTraits::ChannelType GetBlue() const
+	inline constexpr typename PixTraits::ChannelType GetBlue() const
 	{
 		return (PixelData & PixTraits::BlueMask()) >> PixTraits::BlueShift;
 	}
 
-	constexpr typename PixTraits::ChannelType GetAlpha() const
+	inline constexpr typename PixTraits::ChannelType GetAlpha() const
 	{
 		return (PixelData & PixTraits::AlphaMask()) >> PixTraits::AlphaShift;
 	}
 
-	void SetRed(typename PixTraits::ChannelType Value)
+	inline void SetRed(typename PixTraits::ChannelType Value)
 	{
 		PixelData &= ~PixTraits::RedMask();
 		PixelData |= (Value << PixTraits::RedShift) & PixTraits::RedMask();
 	}
 
-	void SetGreen(typename PixTraits::ChannelType Value)
+	inline void SetGreen(typename PixTraits::ChannelType Value)
 	{
 		PixelData &= ~PixTraits::GreenMask();
 		PixelData |= (Value << PixTraits::GreenShift) & PixTraits::GreenMask();
 	}
 
-	void SetBlue(typename PixTraits::ChannelType Value)
+	inline void SetBlue(typename PixTraits::ChannelType Value)
 	{
 		PixelData &= ~PixTraits::BlueMask();
 		PixelData |= (Value << PixTraits::BlueShift) & PixTraits::BlueMask();
 	}
 
-	void SetAlpha(typename PixTraits::ChannelType Value)
+	inline void SetAlpha(typename PixTraits::ChannelType Value)
 	{
 		PixelData &= ~PixTraits::AlphaMask();
 		PixelData |= (Value << PixTraits::AlphaShift) & PixTraits::AlphaMask();
