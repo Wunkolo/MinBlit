@@ -337,10 +337,12 @@ public:
 		:
 		PixelData(0)
 	{
-		SetRed(Red);
-		SetGreen(Green);
-		SetBlue(Blue);
-		SetAlpha(Alpha);
+		SetPixel(
+			Red,
+			Green,
+			Blue,
+			Alpha
+		);
 	}
 
 	inline constexpr typename PixTraits::ChannelType GetRed() const
@@ -385,6 +387,29 @@ public:
 	{
 		PixelData &= ~PixTraits::AlphaMask();
 		PixelData |= (Value << PixTraits::AlphaShift) & PixTraits::AlphaMask();
+	}
+
+	inline constexpr typename PixTraits::PixelType GetPixel() const
+	{
+		return PixelData;
+	}
+
+	inline void SetPixel(typename PixTraits::PixelType PackedPixel)
+	{
+		PixelData = PackedPixel;
+	}
+
+	inline void SetPixel(
+		typename PixTraits::ChannelType Red,
+		typename PixTraits::ChannelType Green,
+		typename PixTraits::ChannelType Blue,
+		typename PixTraits::ChannelType Alpha
+	)
+	{
+		SetRed(Red);
+		SetGreen(Green);
+		SetBlue(Blue);
+		SetAlpha(Alpha);
 	}
 
 private:
