@@ -303,7 +303,7 @@ struct BltPixelTraits
 
 namespace PixelFormats
 {
-using RGBA32 = BltPixelTraits<
+using RGBA8888 = BltPixelTraits<
 	uint32_t,
 	uint8_t,
 	8, 8, 8, 8
@@ -416,7 +416,7 @@ private:
 	typename PixTraits::PixelType PixelData;
 };
 
-using BltPixelRGBA32 = BltPixel<PixelFormats::RGBA32>;
+using BltPixelRGBA8888 = BltPixel<PixelFormats::RGBA8888>;
 }
 
 #ifdef MINBLIT_IMPLEMENTATION
