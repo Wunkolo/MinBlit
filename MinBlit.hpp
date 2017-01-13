@@ -327,7 +327,7 @@ using RGBA5551 = BltPixelTraits<
 >;
 
 using RGB888 = BltPixelTraits <
-	uint16_t,
+	uint32_t,
 	uint8_t,
 	8, 8, 8, 0
 >;
