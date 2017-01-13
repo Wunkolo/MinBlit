@@ -208,7 +208,7 @@ public:
 
 using BltPointSize = BltPoint<BltSize>;
 using BltPointInt = BltPoint<BltIntegral>;
-using BltPointSize = BltPoint<BltScalar>;
+using BltPointScalar = BltPoint<BltScalar>;
 
 template< typename ScalarType >
 class BltRect
@@ -258,6 +258,10 @@ public:
 		return false;
 	}
 };
+
+using BltRectSize = BltRect<BltSize>;
+using BltRectInt = BltRect<BltIntegral>;
+using BltRectScalar = BltRect<BltScalar>;
 
 // Channel traits type
 template<
