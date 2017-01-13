@@ -490,7 +490,7 @@ public:
 			{
 				Pixels.reset(new typename Traits::PixelType[Width * Height]);
 			}
-			catch
+			catch( std::bad_alloc& BadAlloc )
 			{
 				// Error allocating
 			}
