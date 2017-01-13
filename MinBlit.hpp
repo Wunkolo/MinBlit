@@ -450,7 +450,8 @@ private:
 using BltPixelRGBA8888 = BltPixel<PixelFormats::RGBA8888>;
 using BltPixelRGBA4444 = BltPixel<PixelFormats::RGBA4444>;
 using BltPixelRGBA5551 = BltPixel<PixelFormats::RGBA5551>;
-using BltPixelRGBA565 = BltPixel<PixelFormats::RGB565>;
+using BltPixelRGB888 = BltPixel<PixelFormats::RGB888>;
+using BltPixelRGB565 = BltPixel<PixelFormats::RGB565>;
 }
 
 #ifdef MINBLIT_IMPLEMENTATION
