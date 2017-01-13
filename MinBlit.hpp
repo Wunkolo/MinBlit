@@ -320,6 +320,18 @@ using RGBA5551 = BltPixelTraits<
 	uint8_t,
 	5, 5, 5, 1
 >;
+
+using RGB888 = BltPixelTraits <
+	uint16_t,
+	uint8_t,
+	8, 8, 8, 0
+>;
+
+using RGB565 = BltPixelTraits<
+	uint16_t,
+	uint8_t,
+	5, 6, 5, 0
+>;
 }
 
 template<
@@ -431,6 +443,7 @@ private:
 using BltPixelRGBA8888 = BltPixel<PixelFormats::RGBA8888>;
 using BltPixelRGBA4444 = BltPixel<PixelFormats::RGBA4444>;
 using BltPixelRGBA5551 = BltPixel<PixelFormats::RGBA5551>;
+using BltPixelRGBA565 = BltPixel<PixelFormats::RGB565>;
 }
 
 #ifdef MINBLIT_IMPLEMENTATION
