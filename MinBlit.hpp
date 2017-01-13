@@ -521,7 +521,7 @@ public:
 		return Pixels.get();
 	}
 
-	inline void SetPixel(BltPoint Position, typename Traits::PixelType Pixel)
+	inline void SetPixel(BltPointSize Position, typename Traits::PixelType Pixel)
 	{
 		SetPixel(Position.X, Position.Y, Pixel);
 	}
