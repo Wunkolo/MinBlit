@@ -504,6 +504,36 @@ public:
 		}
 	}
 
+	BltSurface(const BltSurface& Other)
+		:
+		Pixels(nullptr),
+		Width(Other.GetWidth()),
+		Height(Other.GetHeight())
+	{
+		Pixels.reset(
+			new typename Traits::PixelType[Other.GetWidth() * Other.GetHeight()]()
+		);
+		std::copy_n(
+			Other.GetPixels(),
+			Other.GetWidth() * Other.GetHeight(),
+			Pixels.get()
+		);
+	}
+
+	BltSurface& operator=(const BltSurface& Other)
+	{
+		Width = Other.Width;
+		Height = Other.Height;
+		Pixels.reset(
+			new typename Traits::PixelType[Other.GetWidth() * Other.GetHeight()]()
+		);
+		std::copy_n(
+			Other.GetPixels(),
+			Other.GetWidth() * Other.GetHeight(),
+			Pixels.get()
+		);
+	}
+
 	inline constexpr BltSize GetWidth() const
 	{
 		return Width;
