@@ -48,6 +48,7 @@ TODO
 #include <type_traits>
 #include <limits>
 #include <memory>
+#include <algorithm>
 
 namespace MinBlit
 {
@@ -531,6 +532,15 @@ public:
 	inline void SetPixel(BltSize X, BltSize Y, typename Traits::PixelType Pixel)
 	{
 		Pixels[X + (Y * GetWidth())] = Pixel;
+	}
+
+	inline void Fill(typename Traits::PixelType Pixel)
+	{
+		std::fill_n(
+			Pixels.get(),
+			Width * Height,
+			Pixel
+		);
 	}
 
 private:
