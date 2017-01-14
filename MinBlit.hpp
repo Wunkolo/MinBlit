@@ -388,6 +388,11 @@ public:
 		);
 	}
 
+	operator typename Traits::PixelType() const
+	{
+		return PixelData;
+	}
+
 	inline constexpr typename Traits::ChannelType GetRed() const
 	{
 		return (PixelData & Traits::RedMask()) >> Traits::RedShift;
@@ -472,6 +477,7 @@ class BltSurface
 {
 public:
 	using Traits = PixTraits;
+	using PixelType = typename Traits::PixelType;
 
 	BltSurface()
 		:
@@ -489,7 +495,7 @@ public:
 	{
 		if( Width && Height )
 		{
-			Pixels.reset(new typename Traits::PixelType[Width * Height]());
+			Pixels.reset(new PixelType[Width * Height]());
 		}
 		else
 		{
@@ -504,7 +510,7 @@ public:
 		Height(Other.GetHeight())
 	{
 		Pixels.reset(
-			new typename Traits::PixelType[Other.GetWidth() * Other.GetHeight()]()
+			new PixelType[Other.GetWidth() * Other.GetHeight()]()
 		);
 		std::copy_n(
 			Other.GetPixels(),
@@ -518,7 +524,7 @@ public:
 		Width = Other.Width;
 		Height = Other.Height;
 		Pixels.reset(
-			new typename Traits::PixelType[Other.GetWidth() * Other.GetHeight()]()
+			new PixelType[Other.GetWidth() * Other.GetHeight()]()
 		);
 		std::copy_n(
 			Other.GetPixels(),
@@ -537,27 +543,27 @@ public:
 		return Height;
 	}
 
-	inline constexpr typename Traits::PixelType GetPixel(BltSize X, BltSize Y) const
+	inline constexpr PixelType GetPixel(BltSize X, BltSize Y) const
 	{
 		return Pixels[X + (Y * GetWidth())];
 	}
 
-	inline constexpr const typename Traits::PixelType* GetPixels() const
+	inline constexpr const PixelType* GetPixels() const
 	{
 		return Pixels.get();
 	}
 
-	inline void SetPixel(BltPointSize Position, typename Traits::PixelType Pixel)
+	inline void SetPixel(BltPointSize Position, PixelType Pixel)
 	{
 		SetPixel(Position.X, Position.Y, Pixel);
 	}
 
-	inline void SetPixel(BltSize X, BltSize Y, typename Traits::PixelType Pixel)
+	inline void SetPixel(BltSize X, BltSize Y, PixelType Pixel)
 	{
 		Pixels[X + (Y * GetWidth())] = Pixel;
 	}
 
-	inline void Fill(typename Traits::PixelType Pixel)
+	inline void Fill(PixelType Pixel)
 	{
 		std::fill_n(
 			Pixels.get(),
@@ -568,7 +574,7 @@ public:
 
 private:
 	BltSize Width, Height;
-	std::unique_ptr<typename Traits::PixelType[]> Pixels;
+	std::unique_ptr<PixelType[]> Pixels;
 };
 
 using BltSurfaceRGBA8888 = BltSurface<PixelFormats::RGBA8888>;
