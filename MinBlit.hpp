@@ -489,18 +489,11 @@ public:
 	{
 		if( Width && Height )
 		{
-			try
-			{
-				Pixels.reset(new typename Traits::PixelType[Width * Height]());
-			}
-			catch( std::bad_alloc& BadAlloc )
-			{
-				// Error allocating
-			}
+			Pixels.reset(new typename Traits::PixelType[Width * Height]());
 		}
 		else
 		{
-			Width = Height = 0;
+			Width = Height = BltSize(0);
 		}
 	}
 
