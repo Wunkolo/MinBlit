@@ -604,7 +604,10 @@ public:
 		BltPixel<Traits> Color
 	)
 	{
-		BltPointInt Delta(To - From);
+		BltPointInt Delta(
+			static_cast<BltIntegral>(To.X) - From.X,
+			static_cast<BltIntegral>(To.Y) - From.Y
+		);
 		BltPointSize DeltaAbs(
 			Abs(Delta.X),
 			Abs(Delta.Y)
