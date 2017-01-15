@@ -659,6 +659,76 @@ public:
 		}
 	}
 
+	inline void LineStipple(
+		BltPointSize From,
+		BltPointSize To,
+		BltPixel<Traits> Color,
+		uint32_t Pattern = 0xAAAAAAAA
+	)
+	{
+		BltPointInt Delta(
+			static_cast<BltIntegral>(To.X) - From.X,
+			static_cast<BltIntegral>(To.Y) - From.Y
+		);
+		BltPointSize DeltaAbs(
+			Abs(Delta.X),
+			Abs(Delta.Y)
+		);
+		BltPointInt Sign(
+			Sign(Delta.X),
+			Sign(Delta.Y)
+		);
+
+		BltPointSize Error(
+			DeltaAbs / 2
+		);
+
+		BltPointSize Pen = From;
+
+		if( DeltaAbs.X >= DeltaAbs.Y ) // Horizontal
+		{
+			for( size_t i = 0; i < DeltaAbs.X; i++ )
+			{
+				Error.Y += DeltaAbs.Y;
+				if( Error.Y >= DeltaAbs.X )
+				{
+					Error.Y -= DeltaAbs.X;
+					Pen.Y += Sign.Y;
+				}
+				Pen.X += Sign.X;
+				if( Pattern & 1 )
+				{
+					SetPixel(
+						Pen,
+						Color
+					);
+				}
+				Pattern = (Pattern << 1) | (Pattern >> 31);
+			}
+		}
+		else // Vertical
+		{
+			for( size_t i = 0; i < DeltaAbs.Y; i++ )
+			{
+				Error.X += DeltaAbs.X;
+				if( Error.X >= DeltaAbs.Y )
+				{
+					Error.X -= DeltaAbs.Y;
+					Pen.X += Sign.X;
+				}
+				Pen.Y += Sign.Y;
+				if( Pattern & 1 )
+				{
+					SetPixel(
+						Pen,
+						Color
+					);
+				}
+				Pattern = (Pattern << 1) | (Pattern >> 31);
+			}
+		}
+	}
+
 private:
 	BltSize Width, Height;
 	std::unique_ptr<PixelType[]> Pixels;
