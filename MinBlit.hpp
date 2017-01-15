@@ -168,8 +168,8 @@ public:
 	inline BltPoint operator+(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
-			X + Other.X,
-			Y + Other.Y
+			X + static_cast<ScalarType>(Other.X),
+			Y + static_cast<ScalarType>(Other.Y)
 		);
 	}
 
@@ -177,8 +177,8 @@ public:
 	inline BltPoint operator-(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
-			X - Other.X,
-			Y - Other.Y
+			X - static_cast<ScalarType>(Other.X),
+			Y - static_cast<ScalarType>(Other.Y)
 		);
 	}
 
@@ -186,8 +186,8 @@ public:
 	inline BltPoint operator*(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
-			X * Other.X,
-			Y * Other.Y
+			X * static_cast<ScalarType>(Other.X),
+			Y * static_cast<ScalarType>(Other.Y)
 		);
 	}
 
@@ -195,8 +195,8 @@ public:
 	inline BltPoint operator/(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
-			X / Other.X,
-			Y / Other.Y
+			X / static_cast<ScalarType>(Other.X),
+			Y / static_cast<ScalarType>(Other.Y)
 		);
 	}
 
