@@ -592,6 +592,64 @@ public:
 		);
 	}
 
+	inline void Line(
+		BltPointSize From,
+		BltPointSize To,
+		BltPixel<Traits> Color
+	)
+	{
+		BltPointInt Delta(To - From);
+		BltPointSize DeltaAbs(
+			Abs(Delta.X),
+			Abs(Delta.Y)
+		);
+		BltPointInt Sign(
+			Sign(Delta.X),
+			Sign(Delta.Y)
+		);
+
+		BltPointSize Error(
+			DeltaAbs / 2
+		);
+
+		BltPointSize Pen = From;
+
+		if( DeltaAbs.X >= DeltaAbs.Y ) // Horizontal
+		{
+			for( size_t i = 0; i < DeltaAbs.X; i++ )
+			{
+				Error.Y += DeltaAbs.Y;
+				if( Error.Y >= DeltaAbs.X )
+				{
+					Error.Y -= DeltaAbs.X;
+					Pen.Y += Sign.Y;
+				}
+				Pen.X += Sign.X;
+				SetPixel(
+					Pen,
+					Color
+				);
+			}
+		}
+		else // Vertical
+		{
+			for( size_t i = 0; i < DeltaAbs.Y; i++ )
+			{
+				Error.X += DeltaAbs.X;
+				if( Error.X >= DeltaAbs.Y )
+				{
+					Error.X -= DeltaAbs.Y;
+					Pen.X += Sign.X;
+				}
+				Pen.Y += Sign.Y;
+				SetPixel(
+					Pen,
+					Color
+				);
+			}
+		}
+	}
+
 private:
 	BltSize Width, Height;
 	std::unique_ptr<PixelType[]> Pixels;
