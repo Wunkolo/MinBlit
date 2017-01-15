@@ -70,7 +70,7 @@ template< typename T >
 inline T Max(T A, T B)
 {
 	static_assert(
-		std::enable_if<std::is_arithmetic<T>>::value
+		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
 		);
 	return (A >= B) ? A : B;
@@ -80,7 +80,7 @@ template< typename T >
 inline T Min(T A, T B)
 {
 	static_assert(
-		std::enable_if<std::is_arithmetic<T>>::value
+		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
 		);
 	return (A <= B) ? A : B;
@@ -90,7 +90,7 @@ template <typename T>
 inline T Clamp(T Value, T Lower, T Upper)
 {
 	static_assert(
-		std::enable_if<std::is_arithmetic<T>>::value
+		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
 		);
 	return (Value >= Upper) ? Upper : ((Value <= Lower) ? Lower : Value);
@@ -100,7 +100,7 @@ template <typename T>
 inline T Abs(T Value)
 {
 	static_assert(
-		std::enable_if<std::is_arithmetic<T>>::value
+		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
 		);
 	return Value < 0 ? -Value : Value;
@@ -110,7 +110,7 @@ template <typename T>
 inline T Sign(T Value)
 {
 	static_assert(
-		std::enable_if<std::is_arithmetic<T>>::value
+		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
 		);
 	return (T(0) < Value) - (Value < T(0));
