@@ -164,7 +164,8 @@ public:
 		return ((X == Other.X) && (Y == Other.Y));
 	}
 
-	inline BltPoint operator+(const BltPoint& Other) const
+	template< typename T >
+	inline BltPoint operator+(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
 			X + Other.X,
@@ -172,21 +173,26 @@ public:
 		);
 	}
 
-	inline BltPoint operator-(const BltPoint& Other) const
+	template< typename T >
+	inline BltPoint operator-(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
 			X - Other.X,
 			Y - Other.Y
 		);
 	}
-	inline BltPoint operator*(const BltPoint& Other) const
+
+	template< typename T >
+	inline BltPoint operator*(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
 			X * Other.X,
 			Y * Other.Y
 		);
 	}
-	inline BltPoint operator/(const BltPoint& Other) const
+
+	template< typename T >
+	inline BltPoint operator/(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
 			X / Other.X,
