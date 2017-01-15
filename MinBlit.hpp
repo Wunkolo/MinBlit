@@ -150,6 +150,15 @@ public:
 	{
 	}
 
+	template<typename T>
+	operator BltPoint<T>() const
+	{
+		return BltPoint<T>(
+			static_cast<T>(X),
+			static_cast<T>(Y)
+			);
+	}
+
 	inline bool operator==(const BltPoint& Other) const
 	{
 		return ((X == Other.X) && (Y == Other.Y));
@@ -191,6 +200,15 @@ public:
 		return BltPoint(
 			X * Value,
 			Y * Value
+		);
+	}
+
+	template< typename T >
+	inline BltPoint operator/(const T Value) const
+	{
+		return BltPoint(
+			X / Value,
+			Y / Value
 		);
 	}
 
