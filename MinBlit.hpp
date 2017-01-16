@@ -736,6 +736,41 @@ public:
 		}
 	}
 
+	inline void Circle(
+		BltPointSize Center,
+		BltSize Radius,
+		BltPixel<Traits> Color
+	)
+	{
+		if( Radius )
+		{
+			BltPointSize Offset(0, Radius);
+			BltIntegral Balance = -static_cast<BltIntegral>(Radius);
+			while( Offset.X <= Offset.Y )
+			{
+				BltPointInt P = BltPointInt(Center.X, Center.X) - Offset;
+				BltPointInt W = Offset * 2;;
+
+				SetPixel(P.X, Center.Y + Offset.Y, Color);
+				SetPixel(P.X + W.X, Center.Y + Offset.Y, Color);
+
+				SetPixel(P.X, Center.Y - Offset.Y, Color);
+				SetPixel(P.X + W.X, Center.Y - Offset.Y, Color);
+
+				SetPixel(P.Y, Center.Y + Offset.X, Color);
+				SetPixel(P.Y + W.Y, Center.Y + Offset.X, Color);
+
+				SetPixel(P.Y, Center.Y - Offset.X, Color);
+				SetPixel(P.Y + W.Y, Center.Y - Offset.X, Color);
+
+				if( (Balance += Offset.X++ + Offset.X) >= 0 )
+				{
+					Balance -= --Offset.Y + Offset.Y;
+				}
+			}
+		}
+	}
+
 private:
 	BltSize Width, Height;
 	std::unique_ptr<PixelType[]> Pixels;
