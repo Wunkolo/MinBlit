@@ -737,6 +737,20 @@ public:
 	}
 
 	inline void Circle(
+		BltSize CenterX,
+		BltSize CenterY,
+		BltSize Radius,
+		BltPixel<Traits> Color
+	)
+	{
+		Circle(
+		{ CenterX,CenterY },
+			Radius,
+			Color
+		);
+	}
+
+	inline void Circle(
 		BltPointSize Center,
 		BltSize Radius,
 		BltPixel<Traits> Color
