@@ -586,7 +586,14 @@ public:
 
 	inline void SetPixel(BltSize X, BltSize Y, PixelType Pixel)
 	{
-		Pixels[X + (Y * GetWidth())] = Pixel;
+		if(
+			(X < GetWidth())
+			&&
+			(Y < GetHeight())
+			)
+		{
+			Pixels[X + (Y * GetWidth())] = Pixel;
+		}
 	}
 
 	inline void Fill(PixelType Pixel)
