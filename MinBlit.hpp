@@ -345,32 +345,32 @@ struct BltPixelTraits
 namespace PixelFormats
 {
 using RGBA8888 = BltPixelTraits<
-	uint32_t,
-	uint8_t,
+	std::uint32_t,
+	std::uint8_t,
 	8, 8, 8, 8
 >;
 
 using RGBA4444 = BltPixelTraits<
-	uint16_t,
-	uint8_t,
+	std::uint16_t,
+	std::uint8_t,
 	4, 4, 4, 4
 >;
 
 using RGBA5551 = BltPixelTraits<
-	uint16_t,
-	uint8_t,
+	std::uint16_t,
+	std::uint8_t,
 	5, 5, 5, 1
 >;
 
 using RGB888 = BltPixelTraits <
-	uint32_t,
-	uint8_t,
+	std::uint32_t,
+	std::uint8_t,
 	8, 8, 8, 0
 >;
 
 using RGB565 = BltPixelTraits<
-	uint16_t,
-	uint8_t,
+	std::uint16_t,
+	std::uint8_t,
 	5, 6, 5, 0
 >;
 }
@@ -670,7 +670,7 @@ public:
 		BltPointSize From,
 		BltPointSize To,
 		BltPixel<Traits> Color,
-		uint32_t Pattern = 0xAAAAAAAA
+		std::uint32_t Pattern = 0xAAAAAAAA
 	)
 	{
 		BltPointInt Delta(
