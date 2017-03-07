@@ -294,14 +294,14 @@ using BltRectScalar = BltRect<BltScalar>;
 template<
 	typename TypePacked,
 	typename TypeChannel,
-	size_t RedBits,
-	size_t GreenBits,
-	size_t BlueBits,
-	size_t AlphaBits,
-	size_t RedOffset = 0,
-	size_t GreenOffset = RedBits,
-	size_t BlueOffset = GreenOffset + GreenBits,
-	size_t AlphaOffset = BlueOffset + BlueBits
+	BltSize RedBits,
+	BltSize GreenBits,
+	BltSize BlueBits,
+	BltSize AlphaBits,
+	BltSize RedOffset = 0,
+	BltSize GreenOffset = RedBits,
+	BltSize BlueOffset = GreenOffset + GreenBits,
+	BltSize AlphaOffset = BlueOffset + BlueBits
 >
 struct BltPixelTraits
 {
