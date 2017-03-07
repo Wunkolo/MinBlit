@@ -670,7 +670,7 @@ public:
 		BltPointSize From,
 		BltPointSize To,
 		BltPixel<Traits> Color,
-		std::uint32_t Pattern = 0xAAAAAAAA
+		BltSize Pattern = 0xAAAAAAAA
 	)
 	{
 		BltPointInt Delta(
@@ -710,7 +710,7 @@ public:
 						Color
 					);
 				}
-				Pattern = (Pattern << 1) | (Pattern >> 31);
+				Pattern = (Pattern << 1) | (Pattern >> (sizeof(BltSize) * CHAR_BIT)-1);
 			}
 		}
 		else // Vertical
@@ -731,7 +731,7 @@ public:
 						Color
 					);
 				}
-				Pattern = (Pattern << 1) | (Pattern >> 31);
+				Pattern = (Pattern << 1) | (Pattern >> (sizeof(BltSize) * CHAR_BIT) - 1);
 			}
 		}
 	}
