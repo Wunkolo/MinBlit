@@ -43,8 +43,8 @@ TODO
 */
 
 #pragma once
-#include <stdint.h>
-#include <stddef.h>
+#include <cstdint>
+#include <cstddef>
 #include <type_traits>
 #include <limits>
 #include <memory>
@@ -53,15 +53,15 @@ TODO
 namespace MinBlit
 {
 // Typedefs to abstract underlaying types
-using BltScalar = float_t;
+using BltScalar = std::float_t;
 static constexpr BltScalar ScalarMax = std::numeric_limits<BltScalar>::max();
 static constexpr BltScalar ScalarMin = std::numeric_limits<BltScalar>::min();
 
-using BltIntegral = intmax_t;
+using BltIntegral = std::intmax_t;
 static constexpr BltIntegral IntegralMax = std::numeric_limits<BltIntegral>::max();
 static constexpr BltIntegral IntegralMin = std::numeric_limits<BltIntegral>::min();
 
-using BltSize = size_t;
+using BltSize = std::size_t;
 static constexpr BltSize SizeMax = std::numeric_limits<BltSize>::max();
 static constexpr BltSize SizeMin = std::numeric_limits<BltSize>::min();
 
