@@ -632,7 +632,7 @@ public:
 
 		if( DeltaAbs.X >= DeltaAbs.Y ) // Horizontal
 		{
-			for( size_t i = 0; i < DeltaAbs.X; i++ )
+			for( BltSize i = 0; i < DeltaAbs.X; i++ )
 			{
 				Error.Y += DeltaAbs.Y;
 				if( Error.Y >= DeltaAbs.X )
@@ -649,7 +649,7 @@ public:
 		}
 		else // Vertical
 		{
-			for( size_t i = 0; i < DeltaAbs.Y; i++ )
+			for( BltSize i = 0; i < DeltaAbs.Y; i++ )
 			{
 				Error.X += DeltaAbs.X;
 				if( Error.X >= DeltaAbs.Y )
@@ -694,7 +694,7 @@ public:
 
 		if( DeltaAbs.X >= DeltaAbs.Y ) // Horizontal
 		{
-			for( size_t i = 0; i < DeltaAbs.X; i++ )
+			for( BltSize i = 0; i < DeltaAbs.X; i++ )
 			{
 				Error.Y += DeltaAbs.Y;
 				if( Error.Y >= DeltaAbs.X )
@@ -715,7 +715,7 @@ public:
 		}
 		else // Vertical
 		{
-			for( size_t i = 0; i < DeltaAbs.Y; i++ )
+			for( BltSize i = 0; i < DeltaAbs.Y; i++ )
 			{
 				Error.X += DeltaAbs.X;
 				if( Error.X >= DeltaAbs.Y )
