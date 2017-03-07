@@ -57,9 +57,9 @@ using BltScalar = std::float_t;
 static constexpr BltScalar ScalarMax = std::numeric_limits<BltScalar>::max();
 static constexpr BltScalar ScalarMin = std::numeric_limits<BltScalar>::min();
 
-using BltIntegral = std::intmax_t;
-static constexpr BltIntegral IntegralMax = std::numeric_limits<BltIntegral>::max();
-static constexpr BltIntegral IntegralMin = std::numeric_limits<BltIntegral>::min();
+using BltInteger = std::intmax_t;
+static constexpr BltInteger IntegralMax = std::numeric_limits<BltInteger>::max();
+static constexpr BltInteger IntegralMin = std::numeric_limits<BltInteger>::min();
 
 using BltSize = std::size_t;
 static constexpr BltSize SizeMax = std::numeric_limits<BltSize>::max();
@@ -117,16 +117,16 @@ inline T Sign(T Value)
 }
 
 // Integer square-root
-inline BltIntegral isqrt(BltIntegral x)
+inline BltInteger isqrt(BltInteger x)
 {
-	BltIntegral Odd(1);
-	BltIntegral Count(0);
-	BltIntegral Sum(0);
+	BltInteger Odd(1);
+	BltInteger Count(0);
+	BltInteger Sum(0);
 	while( Sum < x )
 	{
 		Count++;
 		Sum += Odd;
-		Odd += BltIntegral(2);
+		Odd += BltInteger(2);
 	}
 	return Count--;
 }
@@ -234,7 +234,7 @@ public:
 };
 
 using BltPointSize = BltPoint<BltSize>;
-using BltPointInt = BltPoint<BltIntegral>;
+using BltPointInt = BltPoint<BltInteger>;
 using BltPointScalar = BltPoint<BltScalar>;
 
 template< typename ScalarType >
@@ -287,7 +287,7 @@ public:
 };
 
 using BltRectSize = BltRect<BltSize>;
-using BltRectInt = BltRect<BltIntegral>;
+using BltRectInt = BltRect<BltInteger>;
 using BltRectScalar = BltRect<BltScalar>;
 
 // Channel traits type
@@ -612,8 +612,8 @@ public:
 	)
 	{
 		BltPointInt Delta(
-			static_cast<BltIntegral>(To.X) - From.X,
-			static_cast<BltIntegral>(To.Y) - From.Y
+			static_cast<BltInteger>(To.X) - From.X,
+			static_cast<BltInteger>(To.Y) - From.Y
 		);
 		BltPointSize DeltaAbs(
 			Abs(Delta.X),
@@ -674,8 +674,8 @@ public:
 	)
 	{
 		BltPointInt Delta(
-			static_cast<BltIntegral>(To.X) - From.X,
-			static_cast<BltIntegral>(To.Y) - From.Y
+			static_cast<BltInteger>(To.X) - From.X,
+			static_cast<BltInteger>(To.Y) - From.Y
 		);
 		BltPointSize DeltaAbs(
 			Abs(Delta.X),
@@ -759,7 +759,7 @@ public:
 		if( Radius )
 		{
 			BltPointSize Offset(0, Radius);
-			BltIntegral Balance = -static_cast<BltIntegral>(Radius);
+			BltInteger Balance = -static_cast<BltInteger>(Radius);
 			while( Offset.X <= Offset.Y )
 			{
 				BltPointInt P = BltPointInt(Center.X, Center.X) - Offset;
