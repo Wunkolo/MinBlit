@@ -54,16 +54,28 @@ namespace MinBlit
 {
 // Typedefs to abstract underlaying types
 using BltScalar = std::float_t;
+static_assert(
+	std::is_floating_point<BltScalar>::value,
+	"BltScalar floating point type required"
+	);
 static constexpr BltScalar ScalarMax = std::numeric_limits<BltScalar>::max();
 static constexpr BltScalar ScalarMin = std::numeric_limits<BltScalar>::min();
 
 using BltInteger = std::intmax_t;
 static constexpr BltInteger IntegralMax = std::numeric_limits<BltInteger>::max();
 static constexpr BltInteger IntegralMin = std::numeric_limits<BltInteger>::min();
+static_assert(
+	std::is_integral<BltInteger>::value,
+	"BltInteger integral type required"
+	);
 
 using BltSize = std::size_t;
 static constexpr BltSize SizeMax = std::numeric_limits<BltSize>::max();
 static constexpr BltSize SizeMin = std::numeric_limits<BltSize>::min();
+static_assert(
+	std::is_unsigned<BltSize>::value,
+	"BltSize integral type required"
+	);
 
 // Utility functions
 template< typename T >
@@ -122,7 +134,7 @@ inline BltInteger isqrt(BltInteger x)
 	BltInteger Odd(1);
 	BltInteger Count(0);
 	BltInteger Sum(0);
-	while( Sum < x )
+	while(Sum < x)
 	{
 		Count++;
 		Sum += Odd;
@@ -275,9 +287,9 @@ public:
 	bool Contains(const BltPoint<ScalarType>& Point) const
 	{
 		BltPoint<ScalarType> Dist = Center - Point;
-		if( Abs(Dist.X) = Abs(HalfDimensions.X) )
+		if(Abs(Dist.X) = Abs(HalfDimensions.X))
 		{
-			if( Abs(Dist.Y) <= Abs(HalfDimensions.Y) )
+			if(Abs(Dist.Y) <= Abs(HalfDimensions.Y))
 			{
 				return true;
 			}
@@ -519,7 +531,7 @@ public:
 		Width(Width),
 		Height(Height)
 	{
-		if( Width && Height )
+		if(Width && Height)
 		{
 			Pixels.reset(new PixelType[Width * Height]());
 		}
@@ -630,12 +642,12 @@ public:
 
 		BltPointSize Pen = From;
 
-		if( DeltaAbs.X >= DeltaAbs.Y ) // Horizontal
+		if(DeltaAbs.X >= DeltaAbs.Y) // Horizontal
 		{
-			for( BltSize i = 0; i < DeltaAbs.X; i++ )
+			for(BltSize i = 0; i < DeltaAbs.X; i++)
 			{
 				Error.Y += DeltaAbs.Y;
-				if( Error.Y >= DeltaAbs.X )
+				if(Error.Y >= DeltaAbs.X)
 				{
 					Error.Y -= DeltaAbs.X;
 					Pen.Y += Sign.Y;
@@ -649,10 +661,10 @@ public:
 		}
 		else // Vertical
 		{
-			for( BltSize i = 0; i < DeltaAbs.Y; i++ )
+			for(BltSize i = 0; i < DeltaAbs.Y; i++)
 			{
 				Error.X += DeltaAbs.X;
-				if( Error.X >= DeltaAbs.Y )
+				if(Error.X >= DeltaAbs.Y)
 				{
 					Error.X -= DeltaAbs.Y;
 					Pen.X += Sign.X;
@@ -692,39 +704,39 @@ public:
 
 		BltPointSize Pen = From;
 
-		if( DeltaAbs.X >= DeltaAbs.Y ) // Horizontal
+		if(DeltaAbs.X >= DeltaAbs.Y) // Horizontal
 		{
-			for( BltSize i = 0; i < DeltaAbs.X; i++ )
+			for(BltSize i = 0; i < DeltaAbs.X; i++)
 			{
 				Error.Y += DeltaAbs.Y;
-				if( Error.Y >= DeltaAbs.X )
+				if(Error.Y >= DeltaAbs.X)
 				{
 					Error.Y -= DeltaAbs.X;
 					Pen.Y += Sign.Y;
 				}
 				Pen.X += Sign.X;
-				if( Pattern & 1 )
+				if(Pattern & 1)
 				{
 					SetPixel(
 						Pen,
 						Color
 					);
 				}
-				Pattern = (Pattern << 1) | (Pattern >> (sizeof(BltSize) * CHAR_BIT)-1);
+				Pattern = (Pattern << 1) | (Pattern >> (sizeof(BltSize) * CHAR_BIT) - 1);
 			}
 		}
 		else // Vertical
 		{
-			for( BltSize i = 0; i < DeltaAbs.Y; i++ )
+			for(BltSize i = 0; i < DeltaAbs.Y; i++)
 			{
 				Error.X += DeltaAbs.X;
-				if( Error.X >= DeltaAbs.Y )
+				if(Error.X >= DeltaAbs.Y)
 				{
 					Error.X -= DeltaAbs.Y;
 					Pen.X += Sign.X;
 				}
 				Pen.Y += Sign.Y;
-				if( Pattern & 1 )
+				if(Pattern & 1)
 				{
 					SetPixel(
 						Pen,
@@ -756,11 +768,11 @@ public:
 		BltPixel<Traits> Color
 	)
 	{
-		if( Radius )
+		if(Radius)
 		{
 			BltPointSize Offset(0, Radius);
 			BltInteger Balance = -static_cast<BltInteger>(Radius);
-			while( Offset.X <= Offset.Y )
+			while(Offset.X <= Offset.Y)
 			{
 				BltPointInt P = BltPointInt(Center.X, Center.X) - Offset;
 				BltPointInt W = Offset * 2;;
@@ -777,7 +789,7 @@ public:
 				SetPixel(P.Y, Center.Y - Offset.X, Color);
 				SetPixel(P.Y + W.Y, Center.Y - Offset.X, Color);
 
-				if( (Balance += Offset.X++ + Offset.X) >= 0 )
+				if((Balance += Offset.X++ + Offset.X) >= 0)
 				{
 					Balance -= --Offset.Y + Offset.Y;
 				}
