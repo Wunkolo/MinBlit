@@ -592,12 +592,12 @@ public:
 		return Pixels.get();
 	}
 
-	void SetPixel(BltPointSize Position, PixelType Pixel)
+	void SetPixel(BltPointSize Position, BltPixel<Traits> Pixel)
 	{
 		SetPixel(Position.X, Position.Y, Pixel);
 	}
 
-	void SetPixel(BltSize X, BltSize Y, PixelType Pixel)
+	void SetPixel(BltSize X, BltSize Y, BltPixel<Traits> Pixel)
 	{
 		if(
 			(X < GetWidth())
@@ -605,7 +605,7 @@ public:
 			(Y < GetHeight())
 		)
 		{
-			Pixels[X + (Y * GetWidth())] = Pixel;
+			Pixels[X + (Y * GetWidth())] = static_cast<PixelType>(Pixel);
 		}
 	}
 
