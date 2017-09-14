@@ -163,7 +163,7 @@ public:
 	}
 
 	template<typename T>
-	operator BltPoint<T>() const
+	explicit operator BltPoint<T>() const
 	{
 		return BltPoint<T>(
 			static_cast<T>(X),
