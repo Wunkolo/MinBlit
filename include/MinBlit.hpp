@@ -45,6 +45,8 @@ TODO
 #pragma once
 #include <cstdint>
 #include <cstddef>
+#include <cmath>
+#include <climits>
 #include <type_traits>
 #include <limits>
 #include <memory>
@@ -57,7 +59,7 @@ using BltScalar = std::float_t;
 static_assert(
 	std::is_floating_point<BltScalar>::value,
 	"BltScalar floating point type required"
-	);
+);
 static constexpr BltScalar ScalarMax = std::numeric_limits<BltScalar>::max();
 static constexpr BltScalar ScalarMin = std::numeric_limits<BltScalar>::min();
 
@@ -67,7 +69,7 @@ static constexpr BltInteger IntegralMin = std::numeric_limits<BltInteger>::min()
 static_assert(
 	std::is_integral<BltInteger>::value,
 	"BltInteger integral type required"
-	);
+);
 
 using BltSize = std::size_t;
 static constexpr BltSize SizeMax = std::numeric_limits<BltSize>::max();
@@ -75,7 +77,7 @@ static constexpr BltSize SizeMin = std::numeric_limits<BltSize>::min();
 static_assert(
 	std::is_unsigned<BltSize>::value,
 	"BltSize integral type required"
-	);
+);
 
 // Utility functions
 template< typename T >
@@ -84,7 +86,7 @@ inline T Max(T A, T B)
 	static_assert(
 		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
-		);
+	);
 	return (A >= B) ? A : B;
 }
 
@@ -94,37 +96,37 @@ inline T Min(T A, T B)
 	static_assert(
 		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
-		);
+	);
 	return (A <= B) ? A : B;
 }
 
-template <typename T>
+template< typename T >
 inline T Clamp(T Value, T Lower, T Upper)
 {
 	static_assert(
 		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
-		);
+	);
 	return (Value >= Upper) ? Upper : ((Value <= Lower) ? Lower : Value);
 }
 
-template <typename T>
+template< typename T >
 inline T Abs(T Value)
 {
 	static_assert(
 		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
-		);
+	);
 	return Value < 0 ? -Value : Value;
 }
 
-template <typename T>
+template< typename T >
 inline T Sign(T Value)
 {
 	static_assert(
 		std::is_arithmetic<T>::value,
 		"T must be an arithmetic type"
-		);
+	);
 	return (T(0) < Value) - (Value < T(0));
 }
 
@@ -149,14 +151,14 @@ class BltPoint
 public:
 	ScalarType X, Y;
 	BltPoint()
-		:
+	:
 		X(0),
 		Y(0)
 	{
 	}
 
 	BltPoint(ScalarType X, ScalarType Y)
-		:
+	:
 		X(X),
 		Y(Y)
 	{
@@ -168,7 +170,7 @@ public:
 		return BltPoint<T>(
 			static_cast<T>(X),
 			static_cast<T>(Y)
-			);
+		);
 	}
 
 	inline bool operator==(const BltPoint& Other) const
@@ -234,8 +236,8 @@ public:
 	{
 		return std::sqrt(
 			static_cast<BltScalar>(
-			X * X + Y * Y
-		)
+				X * X + Y * Y
+			)
 		);
 	}
 
@@ -256,17 +258,17 @@ public:
 	BltPoint<ScalarType> Center, HalfDimensions;
 
 	BltRect()
-		:
+	:
 		Center(0, 0),
 		HalfDimensions(0, 0)
 	{
 	}
 
 	BltRect(
-		const BltPoint& Center,
-		const BltPoint& HalfDimensions
+		const BltPoint<ScalarType>& Center,
+		const BltPoint<ScalarType>& HalfDimensions
 	)
-		:
+	:
 		Center(Center),
 		HalfDimensions(HalfDimensions)
 	{
@@ -278,7 +280,7 @@ public:
 		ScalarType HalfWidth,
 		ScalarType HalfHeight
 	)
-		:
+	:
 		Center(CenterX, CenterY),
 		HalfDimensions(HalfWidth, HalfHeight)
 	{
@@ -304,26 +306,26 @@ using BltRectScalar = BltRect<BltScalar>;
 
 // Channel traits type
 template<
-	typename TypePacked,
-	typename TypeChannel,
-	BltSize RedBits,
-	BltSize GreenBits,
-	BltSize BlueBits,
-	BltSize AlphaBits,
-	BltSize RedOffset = 0,
-	BltSize GreenOffset = RedBits,
-	BltSize BlueOffset = GreenOffset + GreenBits,
-	BltSize AlphaOffset = BlueOffset + BlueBits
->
-struct BltPixelTraits
+typename TypePacked,
+		 typename TypeChannel,
+		 BltSize RedBits,
+		 BltSize GreenBits,
+		 BltSize BlueBits,
+		 BltSize AlphaBits,
+		 BltSize RedOffset = 0,
+		 BltSize GreenOffset = RedBits,
+		 BltSize BlueOffset = GreenOffset + GreenBits,
+		 BltSize AlphaOffset = BlueOffset + BlueBits
+		 >
+		 struct BltPixelTraits
 {
 	using PixelType = TypePacked;
 	using ChannelType = TypeChannel;
 
 	static constexpr BltSize BitsPerPixel =
-		RedBits + GreenBits + BlueBits + AlphaBits;
+	RedBits + GreenBits + BlueBits + AlphaBits;
 	static constexpr BltSize BytesPerPixel =
-		((BitsPerPixel + 8 - 1) & (~(8 - 1))) / 8;
+	((BitsPerPixel + 8 - 1) & (~(8 - 1))) / 8;
 
 	static constexpr BltSize RedDepth = RedBits;
 	static constexpr BltSize RedShift = RedOffset;
@@ -357,38 +359,38 @@ struct BltPixelTraits
 namespace PixelFormats
 {
 using RGBA8888 = BltPixelTraits<
-	std::uint32_t,
-	std::uint8_t,
-	8, 8, 8, 8
+std::uint32_t,
+std::uint8_t,
+8, 8, 8, 8
 >;
 
 using RGBA4444 = BltPixelTraits<
-	std::uint16_t,
-	std::uint8_t,
-	4, 4, 4, 4
+std::uint16_t,
+std::uint8_t,
+4, 4, 4, 4
 >;
 
 using RGBA5551 = BltPixelTraits<
-	std::uint16_t,
-	std::uint8_t,
-	5, 5, 5, 1
+std::uint16_t,
+std::uint8_t,
+5, 5, 5, 1
 >;
 
 using RGB888 = BltPixelTraits <
-	std::uint32_t,
-	std::uint8_t,
-	8, 8, 8, 0
+std::uint32_t,
+std::uint8_t,
+8, 8, 8, 0
 >;
 
 using RGB565 = BltPixelTraits<
-	std::uint16_t,
-	std::uint8_t,
-	5, 6, 5, 0
+std::uint16_t,
+std::uint8_t,
+5, 6, 5, 0
 >;
 }
 
 template<
-	class PixTraits
+class PixTraits
 >
 class BltPixel
 {
@@ -398,13 +400,13 @@ public:
 	using PixelType = typename Traits::PixelType;
 
 	BltPixel()
-		:
+	:
 		PixelData(0)
 	{
 	}
 
 	BltPixel(PixelType Value)
-		:
+	:
 		PixelData(Value)
 	{
 	}
@@ -415,7 +417,7 @@ public:
 		ChannelType Blue,
 		ChannelType Alpha
 	)
-		:
+	:
 		PixelData(0)
 	{
 		SetPixel(
@@ -509,7 +511,7 @@ using BltPixelRGB888 = BltPixel<PixelFormats::RGB888>;
 using BltPixelRGB565 = BltPixel<PixelFormats::RGB565>;
 
 template<
-	class PixTraits
+class PixTraits
 >
 class BltSurface
 {
@@ -518,7 +520,7 @@ public:
 	using PixelType = typename Traits::PixelType;
 
 	BltSurface()
-		:
+	:
 		Pixels(nullptr),
 		Width(0),
 		Height(0)
@@ -526,7 +528,7 @@ public:
 	}
 
 	BltSurface(BltSize Width, BltSize Height)
-		:
+	:
 		Pixels(nullptr),
 		Width(Width),
 		Height(Height)
@@ -542,7 +544,7 @@ public:
 	}
 
 	BltSurface(const BltSurface& Other)
-		:
+	:
 		Pixels(nullptr),
 		Width(Other.GetWidth()),
 		Height(Other.GetHeight())
@@ -602,7 +604,7 @@ public:
 			(X < GetWidth())
 			&&
 			(Y < GetHeight())
-			)
+		)
 		{
 			Pixels[X + (Y * GetWidth())] = Pixel;
 		}
@@ -632,8 +634,8 @@ public:
 			Abs(Delta.Y)
 		);
 		BltPointInt Sign(
-			Sign(Delta.X),
-			Sign(Delta.Y)
+			Sign<BltInteger>(Delta.X),
+			Sign<BltInteger>(Delta.Y)
 		);
 
 		BltPointSize Error(
@@ -690,12 +692,12 @@ public:
 			static_cast<BltInteger>(To.Y) - From.Y
 		);
 		BltPointSize DeltaAbs(
-			Abs(Delta.X),
-			Abs(Delta.Y)
+			Abs<BltInteger>(Delta.X),
+			Abs<BltInteger>(Delta.Y)
 		);
 		BltPointInt Sign(
-			Sign(Delta.X),
-			Sign(Delta.Y)
+			Sign<BltInteger>(Delta.X),
+			Sign<BltInteger>(Delta.Y)
 		);
 
 		BltPointSize Error(
@@ -756,7 +758,7 @@ public:
 	)
 	{
 		Circle(
-		{ CenterX,CenterY },
+			{ CenterX,CenterY },
 			Radius,
 			Color
 		);
