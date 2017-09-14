@@ -634,7 +634,7 @@ public:
 			Abs(Delta.X),
 			Abs(Delta.Y)
 		);
-		BltPointInt Sign(
+		const BltPointInt DeltaSign(
 			Sign<BltInteger>(Delta.X),
 			Sign<BltInteger>(Delta.Y)
 		);
@@ -653,9 +653,9 @@ public:
 				if( Error.Y >= DeltaAbs.X )
 				{
 					Error.Y -= DeltaAbs.X;
-					Pen.Y += Sign.Y;
+					Pen.Y += DeltaSign.Y;
 				}
-				Pen.X += Sign.X;
+				Pen.X += DeltaSign.X;
 				SetPixel(
 					Pen,
 					Color
@@ -670,7 +670,7 @@ public:
 				if( Error.X >= DeltaAbs.Y )
 				{
 					Error.X -= DeltaAbs.Y;
-					Pen.X += Sign.X;
+					Pen.X += DeltaSign.X;
 				}
 				Pen.Y += Sign.Y;
 				SetPixel(
@@ -696,7 +696,7 @@ public:
 			Abs<BltInteger>(Delta.X),
 			Abs<BltInteger>(Delta.Y)
 		);
-		BltPointInt Sign(
+		BltPointInt DeltaSign(
 			Sign<BltInteger>(Delta.X),
 			Sign<BltInteger>(Delta.Y)
 		);
@@ -715,9 +715,9 @@ public:
 				if( Error.Y >= DeltaAbs.X )
 				{
 					Error.Y -= DeltaAbs.X;
-					Pen.Y += Sign.Y;
+					Pen.Y += DeltaSign.Y;
 				}
-				Pen.X += Sign.X;
+				Pen.X += DeltaSign.X;
 				if( Pattern & 1 )
 				{
 					SetPixel(
@@ -736,9 +736,9 @@ public:
 				if( Error.X >= DeltaAbs.Y )
 				{
 					Error.X -= DeltaAbs.Y;
-					Pen.X += Sign.X;
+					Pen.X += DeltaSign.X;
 				}
-				Pen.Y += Sign.Y;
+				Pen.Y += DeltaSign.Y;
 				if( Pattern & 1 )
 				{
 					SetPixel(
