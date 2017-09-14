@@ -79,7 +79,7 @@ static_assert(
 
 // Utility functions
 template< typename T >
-inline T Max(T A, T B)
+T Max(T A, T B)
 {
 	static_assert(
 		std::is_arithmetic<T>::value,
@@ -89,7 +89,7 @@ inline T Max(T A, T B)
 }
 
 template< typename T >
-inline T Min(T A, T B)
+T Min(T A, T B)
 {
 	static_assert(
 		std::is_arithmetic<T>::value,
@@ -99,7 +99,7 @@ inline T Min(T A, T B)
 }
 
 template< typename T >
-inline T Clamp(T Value, T Lower, T Upper)
+T Clamp(T Value, T Lower, T Upper)
 {
 	static_assert(
 		std::is_arithmetic<T>::value,
@@ -109,7 +109,7 @@ inline T Clamp(T Value, T Lower, T Upper)
 }
 
 template< typename T >
-inline T Abs(T Value)
+T Abs(T Value)
 {
 	static_assert(
 		std::is_arithmetic<T>::value,
@@ -119,7 +119,7 @@ inline T Abs(T Value)
 }
 
 template< typename T >
-inline T Sign(T Value)
+T Sign(T Value)
 {
 	static_assert(
 		std::is_arithmetic<T>::value,
@@ -171,13 +171,13 @@ public:
 		);
 	}
 
-	inline bool operator==(const BltPoint& Other) const
+	bool operator==(const BltPoint& Other) const
 	{
 		return ((X == Other.X) && (Y == Other.Y));
 	}
 
 	template< typename T >
-	inline BltPoint operator+(const BltPoint<T>& Other) const
+	BltPoint operator+(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
 			X + static_cast<ScalarType>(Other.X),
@@ -186,7 +186,7 @@ public:
 	}
 
 	template< typename T >
-	inline BltPoint operator-(const BltPoint<T>& Other) const
+	BltPoint operator-(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
 			X - static_cast<ScalarType>(Other.X),
@@ -195,7 +195,7 @@ public:
 	}
 
 	template< typename T >
-	inline BltPoint operator*(const BltPoint<T>& Other) const
+	BltPoint operator*(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
 			X * static_cast<ScalarType>(Other.X),
@@ -204,7 +204,7 @@ public:
 	}
 
 	template< typename T >
-	inline BltPoint operator/(const BltPoint<T>& Other) const
+	BltPoint operator/(const BltPoint<T>& Other) const
 	{
 		return BltPoint(
 			X / static_cast<ScalarType>(Other.X),
@@ -213,7 +213,7 @@ public:
 	}
 
 	template< typename T >
-	inline BltPoint operator*(const T Value) const
+	BltPoint operator*(const T Value) const
 	{
 		return BltPoint(
 			X * Value,
@@ -222,7 +222,7 @@ public:
 	}
 
 	template< typename T >
-	inline BltPoint operator/(const T Value) const
+	BltPoint operator/(const T Value) const
 	{
 		return BltPoint(
 			X / Value,
@@ -230,7 +230,7 @@ public:
 		);
 	}
 
-	inline BltScalar Length() const
+	BltScalar Length() const
 	{
 		return std::sqrt(
 			static_cast<BltScalar>(
@@ -239,7 +239,7 @@ public:
 		);
 	}
 
-	inline BltScalar Dot(const BltPoint& Other) const
+	BltScalar Dot(const BltPoint& Other) const
 	{
 		return X * Other.X + Y * Other.Y;
 	}
@@ -431,61 +431,61 @@ public:
 		return PixelData;
 	}
 
-	inline constexpr ChannelType GetRed() const
+	constexpr ChannelType GetRed() const
 	{
 		return (PixelData & Traits::RedMask()) >> Traits::RedShift;
 	}
 
-	inline constexpr ChannelType GetGreen() const
+	constexpr ChannelType GetGreen() const
 	{
 		return (PixelData & Traits::GreenMask()) >> Traits::GreenShift;
 	}
 
-	inline constexpr ChannelType GetBlue() const
+	constexpr ChannelType GetBlue() const
 	{
 		return (PixelData & Traits::BlueMask()) >> Traits::BlueShift;
 	}
 
-	inline constexpr ChannelType GetAlpha() const
+	constexpr ChannelType GetAlpha() const
 	{
 		return (PixelData & Traits::AlphaMask()) >> Traits::AlphaShift;
 	}
 
-	inline void SetRed(ChannelType Value)
+	void SetRed(ChannelType Value)
 	{
 		PixelData &= ~Traits::RedMask();
 		PixelData |= (Value << Traits::RedShift) & Traits::RedMask();
 	}
 
-	inline void SetGreen(ChannelType Value)
+	void SetGreen(ChannelType Value)
 	{
 		PixelData &= ~Traits::GreenMask();
 		PixelData |= (Value << Traits::GreenShift) & Traits::GreenMask();
 	}
 
-	inline void SetBlue(ChannelType Value)
+	void SetBlue(ChannelType Value)
 	{
 		PixelData &= ~Traits::BlueMask();
 		PixelData |= (Value << Traits::BlueShift) & Traits::BlueMask();
 	}
 
-	inline void SetAlpha(ChannelType Value)
+	void SetAlpha(ChannelType Value)
 	{
 		PixelData &= ~Traits::AlphaMask();
 		PixelData |= (Value << Traits::AlphaShift) & Traits::AlphaMask();
 	}
 
-	inline constexpr PixelType GetPixel() const
+	constexpr PixelType GetPixel() const
 	{
 		return PixelData;
 	}
 
-	inline void SetPixel(PixelType PackedPixel)
+	void SetPixel(PixelType PackedPixel)
 	{
 		PixelData = PackedPixel;
 	}
 
-	inline void SetPixel(
+	void SetPixel(
 		ChannelType Red,
 		ChannelType Green,
 		ChannelType Blue,
@@ -572,32 +572,32 @@ public:
 		return *this;
 	}
 
-	inline constexpr BltSize GetWidth() const
+	constexpr BltSize GetWidth() const
 	{
 		return Width;
 	}
 
-	inline constexpr BltSize GetHeight() const
+	constexpr BltSize GetHeight() const
 	{
 		return Height;
 	}
 
-	inline constexpr PixelType GetPixel(BltSize X, BltSize Y) const
+	constexpr PixelType GetPixel(BltSize X, BltSize Y) const
 	{
 		return Pixels[X + (Y * GetWidth())];
 	}
 
-	inline constexpr const PixelType* GetPixels() const
+	constexpr const PixelType* GetPixels() const
 	{
 		return Pixels.get();
 	}
 
-	inline void SetPixel(BltPointSize Position, PixelType Pixel)
+	void SetPixel(BltPointSize Position, PixelType Pixel)
 	{
 		SetPixel(Position.X, Position.Y, Pixel);
 	}
 
-	inline void SetPixel(BltSize X, BltSize Y, PixelType Pixel)
+	void SetPixel(BltSize X, BltSize Y, PixelType Pixel)
 	{
 		if(
 			(X < GetWidth())
@@ -609,7 +609,7 @@ public:
 		}
 	}
 
-	inline void Fill(PixelType Pixel)
+	void Fill(PixelType Pixel)
 	{
 		std::fill_n(
 			Pixels.get(),
@@ -618,7 +618,7 @@ public:
 		);
 	}
 
-	inline void Line(
+	void Line(
 		BltPointSize From,
 		BltPointSize To,
 		BltPixel<Traits> Color
@@ -679,7 +679,7 @@ public:
 		}
 	}
 
-	inline void LineStipple(
+	void LineStipple(
 		BltPointSize From,
 		BltPointSize To,
 		BltPixel<Traits> Color,
@@ -749,7 +749,7 @@ public:
 		}
 	}
 
-	inline void Circle(
+	void Circle(
 		BltSize CenterX,
 		BltSize CenterY,
 		BltSize Radius,
@@ -763,7 +763,7 @@ public:
 		);
 	}
 
-	inline void Circle(
+	void Circle(
 		BltPointSize Center,
 		BltSize Radius,
 		BltPixel<Traits> Color
