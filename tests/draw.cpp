@@ -47,7 +47,12 @@ int main(int argc, char* argv[])
 		///
 
 
-		Screen.Circle(50, 50, 30, MinBlit::BltPixelRGB888(255, 0, 0, 0));
+		Screen.Circle(
+			static_cast<MinBlit::BltSize>(Width * Phase),
+			50,
+			30,
+			MinBlit::BltPixelRGB888(255, 0, 0, 0)
+		);
 
 		sg_paint(
 			Screen.GetPixels(),
