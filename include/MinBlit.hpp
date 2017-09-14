@@ -289,7 +289,7 @@ public:
 	bool Contains(const BltPoint<ScalarType>& Point) const
 	{
 		BltPoint<ScalarType> Dist = Center - Point;
-		if( Abs(Dist.X) = Abs(HalfDimensions.X) )
+		if( Abs(Dist.X) == Abs(HalfDimensions.X) )
 		{
 			if( Abs(Dist.Y) <= Abs(HalfDimensions.Y) )
 			{
