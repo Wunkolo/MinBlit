@@ -403,7 +403,7 @@ public:
 	{
 	}
 
-	BltPixel(PixelType Value)
+	explicit BltPixel(PixelType Value)
 		:
 		PixelData(Value)
 	{
@@ -426,7 +426,7 @@ public:
 		);
 	}
 
-	operator PixelType() const
+	explicit operator PixelType() const
 	{
 		return PixelData;
 	}
@@ -537,7 +537,7 @@ public:
 		}
 		else
 		{
-			this.Width = Height = BltSize(0);
+			this->Width = this->Height = BltSize(0);
 		}
 	}
 
@@ -686,15 +686,15 @@ public:
 		BltSize Pattern = 0xAAAAAAAA
 	)
 	{
-		BltPointInt Delta(
+		const BltPointInt Delta(
 			static_cast<BltInteger>(To.X) - From.X,
 			static_cast<BltInteger>(To.Y) - From.Y
 		);
-		BltPointSize DeltaAbs(
+		const BltPointSize DeltaAbs(
 			Abs<BltInteger>(Delta.X),
 			Abs<BltInteger>(Delta.Y)
 		);
-		BltPointInt DeltaSign(
+		const BltPointInt DeltaSign(
 			Sign<BltInteger>(Delta.X),
 			Sign<BltInteger>(Delta.Y)
 		);
@@ -776,7 +776,7 @@ public:
 			while( Offset.X <= Offset.Y )
 			{
 				BltPointInt P = BltPointInt(Center.X, Center.X) - Offset;
-				BltPointInt W = Offset * 2;;
+				const BltPointInt W = static_cast<BltPointInt>(Offset * 2);
 
 				SetPixel(P.X, Center.Y + Offset.Y, Color);
 				SetPixel(P.X + W.X, Center.Y + Offset.Y, Color);
