@@ -136,7 +136,7 @@ inline BltInteger isqrt(BltInteger x)
 	BltInteger Odd(1);
 	BltInteger Count(0);
 	BltInteger Sum(0);
-	while(Sum < x)
+	while( Sum < x )
 	{
 		Count++;
 		Sum += Odd;
@@ -151,14 +151,14 @@ class BltPoint
 public:
 	ScalarType X, Y;
 	BltPoint()
-	:
+		:
 		X(0),
 		Y(0)
 	{
 	}
 
 	BltPoint(ScalarType X, ScalarType Y)
-	:
+		:
 		X(X),
 		Y(Y)
 	{
@@ -237,7 +237,7 @@ public:
 		return std::sqrt(
 			static_cast<BltScalar>(
 				X * X + Y * Y
-			)
+				)
 		);
 	}
 
@@ -258,7 +258,7 @@ public:
 	BltPoint<ScalarType> Center, HalfDimensions;
 
 	BltRect()
-	:
+		:
 		Center(0, 0),
 		HalfDimensions(0, 0)
 	{
@@ -268,7 +268,7 @@ public:
 		const BltPoint<ScalarType>& Center,
 		const BltPoint<ScalarType>& HalfDimensions
 	)
-	:
+		:
 		Center(Center),
 		HalfDimensions(HalfDimensions)
 	{
@@ -280,7 +280,7 @@ public:
 		ScalarType HalfWidth,
 		ScalarType HalfHeight
 	)
-	:
+		:
 		Center(CenterX, CenterY),
 		HalfDimensions(HalfWidth, HalfHeight)
 	{
@@ -289,9 +289,9 @@ public:
 	bool Contains(const BltPoint<ScalarType>& Point) const
 	{
 		BltPoint<ScalarType> Dist = Center - Point;
-		if(Abs(Dist.X) = Abs(HalfDimensions.X))
+		if( Abs(Dist.X) = Abs(HalfDimensions.X) )
 		{
-			if(Abs(Dist.Y) <= Abs(HalfDimensions.Y))
+			if( Abs(Dist.Y) <= Abs(HalfDimensions.Y) )
 			{
 				return true;
 			}
@@ -306,26 +306,26 @@ using BltRectScalar = BltRect<BltScalar>;
 
 // Channel traits type
 template<
-typename TypePacked,
-		 typename TypeChannel,
-		 BltSize RedBits,
-		 BltSize GreenBits,
-		 BltSize BlueBits,
-		 BltSize AlphaBits,
-		 BltSize RedOffset = 0,
-		 BltSize GreenOffset = RedBits,
-		 BltSize BlueOffset = GreenOffset + GreenBits,
-		 BltSize AlphaOffset = BlueOffset + BlueBits
-		 >
-		 struct BltPixelTraits
+	typename TypePacked,
+	typename TypeChannel,
+	BltSize RedBits,
+	BltSize GreenBits,
+	BltSize BlueBits,
+	BltSize AlphaBits,
+	BltSize RedOffset = 0,
+	BltSize GreenOffset = RedBits,
+	BltSize BlueOffset = GreenOffset + GreenBits,
+	BltSize AlphaOffset = BlueOffset + BlueBits
+>
+struct BltPixelTraits
 {
 	using PixelType = TypePacked;
 	using ChannelType = TypeChannel;
 
 	static constexpr BltSize BitsPerPixel =
-	RedBits + GreenBits + BlueBits + AlphaBits;
+		RedBits + GreenBits + BlueBits + AlphaBits;
 	static constexpr BltSize BytesPerPixel =
-	((BitsPerPixel + 8 - 1) & (~(8 - 1))) / 8;
+		((BitsPerPixel + 8 - 1) & (~(8 - 1))) / 8;
 
 	static constexpr BltSize RedDepth = RedBits;
 	static constexpr BltSize RedShift = RedOffset;
@@ -359,38 +359,38 @@ typename TypePacked,
 namespace PixelFormats
 {
 using RGBA8888 = BltPixelTraits<
-std::uint32_t,
-std::uint8_t,
-8, 8, 8, 8
+	std::uint32_t,
+	std::uint8_t,
+	8, 8, 8, 8
 >;
 
 using RGBA4444 = BltPixelTraits<
-std::uint16_t,
-std::uint8_t,
-4, 4, 4, 4
+	std::uint16_t,
+	std::uint8_t,
+	4, 4, 4, 4
 >;
 
 using RGBA5551 = BltPixelTraits<
-std::uint16_t,
-std::uint8_t,
-5, 5, 5, 1
+	std::uint16_t,
+	std::uint8_t,
+	5, 5, 5, 1
 >;
 
 using RGB888 = BltPixelTraits <
-std::uint32_t,
-std::uint8_t,
-8, 8, 8, 0
+	std::uint32_t,
+	std::uint8_t,
+	8, 8, 8, 0
 >;
 
 using RGB565 = BltPixelTraits<
-std::uint16_t,
-std::uint8_t,
-5, 6, 5, 0
+	std::uint16_t,
+	std::uint8_t,
+	5, 6, 5, 0
 >;
 }
 
 template<
-class PixTraits
+	class PixTraits
 >
 class BltPixel
 {
@@ -400,13 +400,13 @@ public:
 	using PixelType = typename Traits::PixelType;
 
 	BltPixel()
-	:
+		:
 		PixelData(0)
 	{
 	}
 
 	BltPixel(PixelType Value)
-	:
+		:
 		PixelData(Value)
 	{
 	}
@@ -417,7 +417,7 @@ public:
 		ChannelType Blue,
 		ChannelType Alpha
 	)
-	:
+		:
 		PixelData(0)
 	{
 		SetPixel(
@@ -511,7 +511,7 @@ using BltPixelRGB888 = BltPixel<PixelFormats::RGB888>;
 using BltPixelRGB565 = BltPixel<PixelFormats::RGB565>;
 
 template<
-class PixTraits
+	class PixTraits
 >
 class BltSurface
 {
@@ -520,34 +520,34 @@ public:
 	using PixelType = typename Traits::PixelType;
 
 	BltSurface()
-	:
-		Pixels(nullptr),
+		:
 		Width(0),
-		Height(0)
+		Height(0),
+		Pixels(nullptr)
 	{
 	}
 
 	BltSurface(BltSize Width, BltSize Height)
-	:
-		Pixels(nullptr),
+		:
 		Width(Width),
-		Height(Height)
+		Height(Height),
+		Pixels(nullptr)
 	{
-		if(Width && Height)
+		if( Width && Height )
 		{
 			Pixels.reset(new PixelType[Width * Height]());
 		}
 		else
 		{
-			Width = Height = BltSize(0);
+			this.Width = Height = BltSize(0);
 		}
 	}
 
 	BltSurface(const BltSurface& Other)
-	:
-		Pixels(nullptr),
+		:
 		Width(Other.GetWidth()),
-		Height(Other.GetHeight())
+		Height(Other.GetHeight()),
+		Pixels(nullptr)
 	{
 		Pixels.reset(
 			new PixelType[Other.GetWidth() * Other.GetHeight()]()
@@ -571,6 +571,7 @@ public:
 			Other.GetWidth() * Other.GetHeight(),
 			Pixels.get()
 		);
+		return *this;
 	}
 
 	inline constexpr BltSize GetWidth() const
@@ -625,11 +626,11 @@ public:
 		BltPixel<Traits> Color
 	)
 	{
-		BltPointInt Delta(
+		const BltPointInt Delta(
 			static_cast<BltInteger>(To.X) - From.X,
 			static_cast<BltInteger>(To.Y) - From.Y
 		);
-		BltPointSize DeltaAbs(
+		const BltPointSize DeltaAbs(
 			Abs(Delta.X),
 			Abs(Delta.Y)
 		);
@@ -644,12 +645,12 @@ public:
 
 		BltPointSize Pen = From;
 
-		if(DeltaAbs.X >= DeltaAbs.Y) // Horizontal
+		if( DeltaAbs.X >= DeltaAbs.Y ) // Horizontal
 		{
-			for(BltSize i = 0; i < DeltaAbs.X; i++)
+			for( BltSize i = 0; i < DeltaAbs.X; i++ )
 			{
 				Error.Y += DeltaAbs.Y;
-				if(Error.Y >= DeltaAbs.X)
+				if( Error.Y >= DeltaAbs.X )
 				{
 					Error.Y -= DeltaAbs.X;
 					Pen.Y += Sign.Y;
@@ -663,10 +664,10 @@ public:
 		}
 		else // Vertical
 		{
-			for(BltSize i = 0; i < DeltaAbs.Y; i++)
+			for( BltSize i = 0; i < DeltaAbs.Y; i++ )
 			{
 				Error.X += DeltaAbs.X;
-				if(Error.X >= DeltaAbs.Y)
+				if( Error.X >= DeltaAbs.Y )
 				{
 					Error.X -= DeltaAbs.Y;
 					Pen.X += Sign.X;
@@ -706,18 +707,18 @@ public:
 
 		BltPointSize Pen = From;
 
-		if(DeltaAbs.X >= DeltaAbs.Y) // Horizontal
+		if( DeltaAbs.X >= DeltaAbs.Y ) // Horizontal
 		{
-			for(BltSize i = 0; i < DeltaAbs.X; i++)
+			for( BltSize i = 0; i < DeltaAbs.X; i++ )
 			{
 				Error.Y += DeltaAbs.Y;
-				if(Error.Y >= DeltaAbs.X)
+				if( Error.Y >= DeltaAbs.X )
 				{
 					Error.Y -= DeltaAbs.X;
 					Pen.Y += Sign.Y;
 				}
 				Pen.X += Sign.X;
-				if(Pattern & 1)
+				if( Pattern & 1 )
 				{
 					SetPixel(
 						Pen,
@@ -729,16 +730,16 @@ public:
 		}
 		else // Vertical
 		{
-			for(BltSize i = 0; i < DeltaAbs.Y; i++)
+			for( BltSize i = 0; i < DeltaAbs.Y; i++ )
 			{
 				Error.X += DeltaAbs.X;
-				if(Error.X >= DeltaAbs.Y)
+				if( Error.X >= DeltaAbs.Y )
 				{
 					Error.X -= DeltaAbs.Y;
 					Pen.X += Sign.X;
 				}
 				Pen.Y += Sign.Y;
-				if(Pattern & 1)
+				if( Pattern & 1 )
 				{
 					SetPixel(
 						Pen,
@@ -758,7 +759,7 @@ public:
 	)
 	{
 		Circle(
-			{ CenterX,CenterY },
+		{ CenterX,CenterY },
 			Radius,
 			Color
 		);
@@ -770,11 +771,11 @@ public:
 		BltPixel<Traits> Color
 	)
 	{
-		if(Radius)
+		if( Radius )
 		{
 			BltPointSize Offset(0, Radius);
 			BltInteger Balance = -static_cast<BltInteger>(Radius);
-			while(Offset.X <= Offset.Y)
+			while( Offset.X <= Offset.Y )
 			{
 				BltPointInt P = BltPointInt(Center.X, Center.X) - Offset;
 				BltPointInt W = Offset * 2;;
@@ -791,7 +792,7 @@ public:
 				SetPixel(P.Y, Center.Y - Offset.X, Color);
 				SetPixel(P.Y + W.Y, Center.Y - Offset.X, Color);
 
-				if((Balance += Offset.X++ + Offset.X) >= 0)
+				if( (Balance += Offset.X++ + Offset.X) >= 0 )
 				{
 					Balance -= --Offset.Y + Offset.Y;
 				}
