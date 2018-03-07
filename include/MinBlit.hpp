@@ -584,8 +584,8 @@ public:
 			static_cast<IntegerT>(To.Y) - From.Y
 		);
 		const PointSize DeltaAbs(
-			Abs(Delta.X),
-			Abs(Delta.Y)
+			std::abs(Delta.X),
+			std::abs(Delta.Y)
 		);
 		const PointInt DeltaSign(
 			Sign<IntegerT>(Delta.X),
@@ -625,7 +625,7 @@ public:
 					Error.X -= DeltaAbs.Y;
 					Pen.X += DeltaSign.X;
 				}
-				Pen.Y += Sign.Y;
+				Pen.Y += DeltaSign.Y;
 				SetPixel(
 					Pen,
 					Color
