@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 		Width * 2, Height * 2
 	);
 
-	MinBlit::BltSurfaceRGB888 Screen(Width, Height);
+	MinBlit::SurfaceRGB888 Screen(Width, Height);
 
 	const std::chrono::high_resolution_clock::time_point Start = std::chrono::high_resolution_clock::now();
 	std::chrono::high_resolution_clock::time_point End;
@@ -47,16 +47,16 @@ int main(int argc, char* argv[])
 		///
 
 		Screen.Circle(
-			static_cast<MinBlit::BltSize>(Width * Phase),
+			static_cast<MinBlit::SizeT>(Width * Phase),
 			Height/2,
 			30,
-			MinBlit::BltPixelRGB888(0xFFFFFFFF)
+			MinBlit::PixelRGB888(0xFFFFFFFF)
 		);
 
 		Screen.LineStipple(
 		{ 0,0 },
-		{ static_cast<MinBlit::BltSize>(Width * Phase), Height/2 },
-		MinBlit::BltPixelRGB888(0xFFFF00FF)
+		{ static_cast<MinBlit::SizeT>(Width * Phase), Height/2 },
+		MinBlit::PixelRGB888(0xFFFF00FF)
 		);
 
 		sg_paint(
