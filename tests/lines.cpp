@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[])
 {
-	MinBlit::SurfaceRGBA8888 Screen(512,512);
+	MinBlit::SurfaceRGBA8888 Screen(512, 512);
 	Screen.Fill(0xFF'30'30'30);
 
 	constexpr std::size_t Spacing = 64;
@@ -24,6 +24,24 @@ int main(int argc, char* argv[])
 				std::hash<std::size_t>{}(X + Y) | 0xFF'00'00'00
 			);
 		}
+	}
+
+	const MinBlit::SizeT Patterns[] = {
+		0b01'01'01'01'01'01'01'01'01'01'01'01'01'01'01'01,
+		0b1100'1100'1100'1100'1100'1100'1100'1100,
+		0b111000'111000'111000'111000'111000'111000,
+		0b11110000'11110000'11110000'11110000,
+		0b1111111100000000'1111111100000000
+	};
+
+	for( std::size_t i = 0; i < sizeof(Patterns) / sizeof(MinBlit::SizeT); i++ )
+	{
+		Screen.LineStipple(
+			MinBlit::PointSize(Screen.GetWidth() / 2, Screen.GetHeight() / 2 + i * Spacing),
+			MinBlit::PointSize(Screen.GetWidth(), Screen.GetHeight() / 2 + i * Spacing),
+			0xFFFFFFFF,
+			Patterns[i]
+		);
 	}
 
 	stbi_write_png(
