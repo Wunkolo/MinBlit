@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 		Screen.LineStipple(
 			MinBlit::PointSize(Screen.GetWidth() / 2, Screen.GetHeight() / 2 + i * Spacing),
 			MinBlit::PointSize(Screen.GetWidth(), Screen.GetHeight() / 2 + i * Spacing),
-			0xFFFFFFFF,
+			std::hash<std::size_t>{}(Patterns[i]) | 0xFF'00'00'00,
 			Patterns[i]
 		);
 	}
