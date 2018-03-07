@@ -26,6 +26,20 @@ endif()
 enable_testing()
 
 add_executable(
+	Lines
+	tests/lines.cpp
+)
+target_include_directories(
+	Lines
+	PRIVATE
+	include
+)
+add_test(
+	NAME Lines
+	COMMAND Lines
+)
+
+add_executable(
 	Draw
 	tests/draw.cpp
 )
