@@ -1,6 +1,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <type_traits>
 
 #include <MinBlit.hpp>
 
@@ -34,14 +35,23 @@ int main(int argc, char* argv[])
 		0b1111111100000000'1111111100000000
 	};
 
-	for( std::size_t i = 0; i < sizeof(Patterns) / sizeof(MinBlit::SizeT); i++ )
+	for( std::size_t i = 0; i < std::extent<decltype(Patterns)>::value; ++i )
 	{
-		Screen.LineStipple(
-			MinBlit::PointSize(Screen.GetWidth() / 2, Screen.GetHeight() / 2 + i * Spacing),
-			MinBlit::PointSize(Screen.GetWidth(), Screen.GetHeight() / 2 + i * Spacing),
-			std::hash<std::size_t>{}(Patterns[i]) | 0xFF'00'00'00,
-			Patterns[i]
-		);
+		for( std::size_t j = 0; j < Spacing/2; ++j )
+		{
+			Screen.LineStipple(
+				MinBlit::PointSize(
+					Screen.GetWidth() / 2,
+					Screen.GetHeight() / 2 + i * Spacing + j
+				),
+				MinBlit::PointSize(
+					Screen.GetWidth(),
+					Screen.GetHeight() / 2 + i * Spacing + j
+				),
+				std::hash<std::size_t>{}(Patterns[i]) | 0xFF'00'00'00,
+				Patterns[i]
+			);
+		}
 	}
 
 	stbi_write_png(
