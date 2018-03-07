@@ -363,7 +363,7 @@ public:
 	{
 	}
 
-	explicit Pixel(PixelType Value)
+	Pixel(PixelType Value)
 		: PixelData(Value)
 	{
 	}
