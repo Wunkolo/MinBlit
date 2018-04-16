@@ -243,10 +243,10 @@ public:
 
 	bool Contains(const Point<ScalarType>& Point) const
 	{
-		Point<ScalarType> Dist = Center - Point;
-		if( std::abs(Dist.X) == Abs(HalfDimensions.X) )
+		const auto Offset = Center - Point;
+		if( std::abs(Offset.X) <= std::abs(HalfDimensions.X) )
 		{
-			if( std::abs(Dist.Y) <= std::abs(HalfDimensions.Y) )
+			if( std::abs(Offset.Y) <= std::abs(HalfDimensions.Y) )
 			{
 				return true;
 			}
