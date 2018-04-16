@@ -244,9 +244,9 @@ public:
 	bool Contains(const Point<ScalarType>& Point) const
 	{
 		Point<ScalarType> Dist = Center - Point;
-		if( Abs(Dist.X) == Abs(HalfDimensions.X) )
+		if( std::abs(Dist.X) == Abs(HalfDimensions.X) )
 		{
-			if( Abs(Dist.Y) <= Abs(HalfDimensions.Y) )
+			if( std::abs(Dist.Y) <= std::abs(HalfDimensions.Y) )
 			{
 				return true;
 			}
